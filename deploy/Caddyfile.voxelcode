@@ -10,5 +10,5 @@ voxelcode.ayaanshaikh.ca {
 	@heavy path /monaco/* /pyodide/* /workers/*
 	header @heavy Cache-Control "public, max-age=604800"
 
-	reverse_proxy voxelcode:3000
+	reverse_proxy 172.18.0.250:3000
 }

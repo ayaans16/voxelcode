@@ -3,6 +3,10 @@
 services:
   voxelcode:
     build: ..
+    # Lets you build elsewhere and `docker load` the image; `never` stops compose
+    # trying to pull "voxelcode" from Docker Hub.
+    image: voxelcode:latest
+    pull_policy: never
     container_name: voxelcode
     restart: unless-stopped
     environment:
@@ -14,12 +18,15 @@ services:
     tmpfs:
       - /tmp
       - /app/.next/cache
-    security_opt:
-      - no-new-privileges:true
+    # no-new-privileges is deliberately off: it makes exec fail ("operation not
+    # permitted") under snap Docker's AppArmor profile.
     cap_drop:
       - ALL
     networks:
-      - infra_default
+      infra_default:
+        # Fixed address: Docker's built-in DNS is unreliable on this host, so Caddy
+        # proxies to this IP instead of the name "voxelcode".
+        ipv4_address: 172.18.0.250
 
 networks:
   infra_default:
