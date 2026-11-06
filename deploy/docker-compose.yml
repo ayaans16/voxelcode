@@ -1,0 +1,26 @@
+# Runs voxelcode on the same Docker network as your existing Caddy ("infra_default"),
+# so Caddy reaches it by name: reverse_proxy voxelcode:3000. No ports are published.
+services:
+  voxelcode:
+    build: ..
+    container_name: voxelcode
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      VOXELCODE_NATIVE_RUNNER: "off"
+    mem_limit: 512m
+    cpus: 1.0
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    networks:
+      - infra_default
+
+networks:
+  infra_default:
+    external: true

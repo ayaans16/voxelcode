@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.claude
+test-results
+playwright-report
+public/monaco
+public/pyodide
+public/workers
+*.tsbuildinfo
+.env*
+deploy
+docs
+tests

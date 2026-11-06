@@ -1,0 +1,14 @@
+voxelcode.ayaanshaikh.ca {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		-Server
+	}
+
+	# Monaco, Pyodide and the runner workers are big and never change between deploys.
+	@heavy path /monaco/* /pyodide/* /workers/*
+	header @heavy Cache-Control "public, max-age=604800"
+
+	reverse_proxy voxelcode:3000
+}

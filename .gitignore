@@ -1,0 +1,14 @@
+node_modules
+.next
+out
+*.tsbuildinfo
+next-env.d.ts
+test-results
+playwright-report
+.DS_Store
+.env*.local
+.claude/
+public/monaco
+public/pyodide
+public/workers
+test-results
